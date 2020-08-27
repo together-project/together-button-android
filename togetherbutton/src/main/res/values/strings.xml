@@ -1,1 +1,6 @@
-<resources></resources>
+<resources>
+    <string name="home_we_need_to_talk">As vezes só precisamos de\nalguém para conversar</string>
+    <string name="find_help">Não fique só.\nNão corra perigo.\nBusque ajuda.</string>
+    <string name="call_180">Chamar 180</string>
+    <string name="safe_contacts">Contato Seguro</string>
+</resources>
