@@ -40,12 +40,6 @@ class TogetherButton(private val context: Context) {
         togetherDialog.show()
     }
 
-    private fun setClickListeners() {
-        view.imgBtnClose.setOnClickListener {
-            togetherDialog.hide()
-        }
-    }
-
     private fun setUpClickListeners() {
         view.imgBtnClose.setOnClickListener {
             togetherDialog.hide()
