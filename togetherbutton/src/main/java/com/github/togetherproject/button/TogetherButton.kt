@@ -7,16 +7,17 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_together_bottom_sheet.view.*
 
-class TogetherButton(private val context: Context) {
+
+class TogetherButton(context: Context) {
 
     private val view: View
-    private val togetherDialog = BottomSheetDialog(context)
+    private val togetherDialog = BottomSheetDialog(context, R.style.TogetherBottomSheetDialog)
 
     init {
         val layoutInflater = LayoutInflater.from(context)
         view = layoutInflater.inflate(R.layout.fragment_together_bottom_sheet, null)
         setClickListeners()
-        togetherDialog.behavior.addBottomSheetCallback(object:
+        togetherDialog.behavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
@@ -41,5 +42,4 @@ class TogetherButton(private val context: Context) {
             togetherDialog.hide()
         }
     }
-
 }

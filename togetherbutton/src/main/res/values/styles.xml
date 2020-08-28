@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="headerText" parent="twoLinesText">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
+    <style name="secondaryText">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:lines">3</item>
+    </style>
+
+    <style name="primaryButtonText">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="twoLinesText">
+        <item name="android:maxLines">2</item>
+        <item name="android:lines">2</item>
+    </style>
+
+    <style
+        name="TogetherBottomSheetDialog"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet</item>
+    </style>
+
+    <style name="Widget.Demo.BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
 </resources>
