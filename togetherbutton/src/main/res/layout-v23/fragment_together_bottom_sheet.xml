@@ -30,7 +30,6 @@
         android:background="@drawable/ic_circular_close"
         android:contentDescription="@string/content_close_button"
         app:layout_constraintStart_toStartOf="parent"
-        android:foreground="?android:selectableItemBackground"
         app:layout_constraintTop_toTopOf="@id/imgViewTopLogo" />
 
     <TextView
