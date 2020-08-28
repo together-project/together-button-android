@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@id/txtViewHumanHint">
 
         <Button
-            android:id="@+id/btnPrimary"
+            android:id="@+id/btnCall"
             style="@style/primaryButtonText"
             android:layout_width="145dp"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
             android:textColor="@color/colorWhite" />
 
         <Button
-            android:id="@+id/btnSecondary"
+            android:id="@+id/btnContacts"
             style="@style/primaryButtonText"
             android:layout_width="145dp"
             android:layout_height="wrap_content"

@@ -1,6 +1,9 @@
 package com.github.togetherproject.button
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -8,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_together_bottom_sheet.view.*
 
 
-class TogetherButton(context: Context) {
+class TogetherButton(private val context: Context) {
 
     private val view: View
     private val togetherDialog = BottomSheetDialog(context, R.style.TogetherBottomSheetDialog)
@@ -16,7 +19,7 @@ class TogetherButton(context: Context) {
     init {
         val layoutInflater = LayoutInflater.from(context)
         view = layoutInflater.inflate(R.layout.fragment_together_bottom_sheet, null)
-        setClickListeners()
+        setUpClickListeners()
         togetherDialog.behavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
 
@@ -40,6 +43,31 @@ class TogetherButton(context: Context) {
     private fun setClickListeners() {
         view.imgBtnClose.setOnClickListener {
             togetherDialog.hide()
+        }
+    }
+
+    private fun setUpClickListeners() {
+        view.imgBtnClose.setOnClickListener {
+            togetherDialog.hide()
+        }
+
+        setUpCallClickListener()
+        setUpContactClickListener()
+    }
+
+    private fun setUpCallClickListener() {
+        view.btnCall.setOnClickListener {
+            val intent = Intent(Intent.ACTION_CALL)
+
+            intent.data = Uri.parse("tel:${context.getString(R.string.emergency_number)}")
+            context.startActivity(intent)
+        }
+    }
+
+    private fun setUpContactClickListener() {
+        view.btnContacts.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+            context.startActivity(intent);
         }
     }
 }

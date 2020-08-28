@@ -7,5 +7,5 @@
     <string name="content_close_button">Close button</string>
     <string name="content_main_center_img">Man and woman handshaking</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="emergency_number">180</string>
 </resources>
