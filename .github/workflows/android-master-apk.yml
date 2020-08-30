@@ -9,8 +9,8 @@ on:
             - 'master'
         
 jobs:
-    test:
-        name: Run Android Tests
+    test_app_and_generate_apk_release:
+        name: Run Android Tests and Generates APK
         runs-on: ubuntu-18.04
 
         steps:
@@ -19,35 +19,22 @@ jobs:
             uses: actions/setup-java@v1
             with:
               java-version: 1.8
+
           - name: Unit tests
             run: bash ./gradlew test --stacktrace
-        
-    generate-apk:
-        name: Generate APK
-        runs-on: ubuntu-18.04
-        
-        steps:
-          - uses: actions/checkout@v2
-          - name: set up JDK 1.8
-            uses: actions/setup-java@v1
-            with:
-              java-version: 1.8
+            
           - name: Build debug APK
-            run: bash ./gradlew assembleDebug --stacktrace          
+            run: bash ./gradlew assembleDebug --stacktrace  
+
           - name: Upload APK
             uses: actions/upload-artifact@v2
             with:
               name: Together Button - Example APK
               path: app/build/outputs/apk/debug/app-debug.apk
-              
-    build:
-        name: Create Release
-        runs-on: ubuntu-latest
-        steps:
-          - name: Checkout code
-            uses: actions/checkout@v2
+
           - name: Get APK version name
             run: echo ::set-env name=VERSION_NAME::$(gradle -q printVersionName)  
+
           - name: Create Release
             id: create_release
             uses: actions/create-release@v1
