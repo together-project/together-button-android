@@ -9,7 +9,7 @@ on:
             - 'feature/lib-versioning'
             
 jobs:
-    test-generate apk:
+    test_app_and_generate_apk:
         name: Run Android Tests and Generates APK
         runs-on: ubuntu-18.04
 
