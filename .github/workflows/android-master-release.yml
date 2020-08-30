@@ -1,7 +1,7 @@
-name: Android Master Test and APK Workflow.
+name: Android Master Release Workflow.
 
 on:
-    pull_request:
+    push:
         branches:
             - 'master'
         
@@ -28,3 +28,18 @@ jobs:
             with:
               name: Together Button - Example APK
               path: app/build/outputs/apk/debug/app-debug.apk
+
+          - name: Get APK version name
+            run: echo ::set-env name=VERSION_NAME::$(gradle -q printVersionName)  
+
+          - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              tag_name: v${{ env.VERSION_NAME }}
+              release_name: Release v${{ env.VERSION_NAME }}
+              body_path: release-notes/CHANGELOG.md
+              draft: true
+              prerelease: false
