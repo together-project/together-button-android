@@ -1,4 +1,4 @@
-name: Android Master APK generation.
+name: Android Master Release Workflow.
 
 on:
     pull_request:
