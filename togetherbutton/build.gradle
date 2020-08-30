@@ -4,15 +4,22 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.togetherproject.button'
 
+ext.versionMajor = 0
+ext.versionMinor = 1
+ext.versionPatch = 2
+ext.versionClassifier = null
+ext.isDebug = false
+ext.minimumSdkVersion = 19
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion project.ext.minimumSdkVersion
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode generateVersionCode()
+        versionName generateVersionName()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -24,6 +31,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    task printVersionName {
+        doLast {
+            println android.defaultConfig.versionName
+        }
+    }
+}
+
+private Integer generateVersionCode() {
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isDebug) {
+        ext.versionClassifier = "debug"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return versionName;
 }
 
 dependencies {
