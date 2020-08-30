@@ -20,13 +20,32 @@ jobs:
             with:
               java-version: 1.8
           - name: Build debug APK
-            run: bash ./gradlew assembleDebug --stacktrace
-            
-          - name: Getting APK name
-            run: echo ::set-env name=VERSION_NAME::$(gradle -q printVersionName)  
-            
+            run: bash ./gradlew assembleDebug --stacktrace          
           - name: Upload APK
             uses: actions/upload-artifact@v2
             with:
-              name: app
+              name: Together Button - Example APK
               path: app/build/outputs/apk/debug/app-debug.apk
+              
+    build:
+        name: Create Release
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v2
+          - name: Get APK version name
+            run: echo ::set-env name=VERSION_NAME::$(gradle -q printVersionName)  
+          - name: Create Release
+            id: create_release
+            uses: actions/create-release@v1
+            env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            with:
+              tag_name: ${{ env.VERSION_NAME }}
+              release_name: Release ${{ env.VERSION_NAME }}
+              body: |
+                Changes in this Release
+                - Test Release
+                - Test Release descript.
+              draft: false
+              prerelease: false
