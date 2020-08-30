@@ -6,7 +6,7 @@ group = 'com.github.togetherproject.button'
 
 ext.versionMajor = 0
 ext.versionMinor = 1
-ext.versionPatch = 2
+ext.versionPatch = 3
 ext.versionClassifier = null
 ext.isDebug = false
 ext.minimumSdkVersion = 19
