@@ -23,14 +23,18 @@ jobs:
       - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
 
-      - name: Run UI Tests - API 29
+      - name: Run UI Tests - API 26
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 26
+          arch: x86_64
+          profile: Nexus 6
           script: ./gradlew connectedCheck --stacktrace
 
       - name: Run UI Tests - API 19
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 19
-          script: ./gradlew connectedAndroidTest --stacktrace
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew connectedCheck --stacktrace
