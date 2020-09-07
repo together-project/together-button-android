@@ -27,10 +27,10 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew connectedCheck
+          script: ./gradlew connectedCheck --stacktrace
 
       - name: Run UI Tests - API 19
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 19
-          script: ./gradlew connectedCheck
+          script: ./gradlew connectedAndroidTest --stacktrace
