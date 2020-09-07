@@ -7,7 +7,7 @@ on:
 
 jobs:
   test_develop_app:
-    name: Run Android Tests and Generates APK
+    name: Run Android Tests
     runs-on: ubuntu-18.04
 
     steps:
