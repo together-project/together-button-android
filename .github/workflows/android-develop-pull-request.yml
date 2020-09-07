@@ -6,9 +6,9 @@ on:
       - 'develop'
 
 jobs:
-  testing_app:
+  unit_test:
     name: Run Android Tests
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -17,27 +17,38 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
+
+  ui_test:
+    name: Run Android Tests
+    runs-on: macos-latest
+    timeout-minutes: 30
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: true
+      matrix:
+        api-level:
+          - 19
+          - 23
+          - 29
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
 
       - name: Building GradleAndroidTest
         run: ./gradlew build assembleAndroidTest
 
-      - name: Run UI Tests - API 26
+      - name: Run UI Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 26
+          api-level: ${{ matrix.api-level }}
           arch: x86_64
-          profile: Nexus 6
-          script: ./gradlew connectedDebugAndroidTest --stacktrace
-
-      - name: Run UI Tests - API 19
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 19
-          arch: x86_64
-          profile: Nexus 6
-          script: ./gradlew connectedDebugAndroidTest --stacktrace
+          script: ./gradlew connectedCheck --no-build-cache --no-daemon --stacktrace

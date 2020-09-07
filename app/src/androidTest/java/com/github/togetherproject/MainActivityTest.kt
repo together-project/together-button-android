@@ -22,19 +22,16 @@ class MainActivityTest {
 
     @Test
     fun test_isActivityInView() {
-        val scenario = activityRule.scenario
         onView(withId(R.id.rootLayout)).check(matches(isDisplayed()))
     }
 
     @Test
     fun test_isTogetherButtonVisible() {
-        val scenario = activityRule.scenario
         onView(withId(R.id.btnHelpMe)).check(matches(isDisplayed()))
     }
 
     @Test
     fun test_isTogetherDialogVisible() {
-        val scenario = activityRule.scenario
         onView(withId(R.id.btnHelpMe)).perform(click())
 
         onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
@@ -42,8 +39,6 @@ class MainActivityTest {
 
     @Test
     fun test_isTogetherDialogDisposedAfterBackButton() {
-        val scenario = activityRule.scenario
-
         onView(withId(R.id.btnHelpMe)).perform(click())
         onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
         pressBack()
@@ -52,8 +47,6 @@ class MainActivityTest {
 
     @Test
     fun test_isTogetherDialogDisposedAfterCloseButton() {
-        val scenario = activityRule.scenario
-
         onView(withId(R.id.btnHelpMe)).perform(click())
         onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
         onView(withId(R.id.imgBtnClose)).perform(click())
@@ -62,8 +55,6 @@ class MainActivityTest {
 
     @Test
     fun test_isTogetherDialogDisposedAfterSwipeDown() {
-        val scenario = activityRule.scenario
-
         onView(withId(R.id.btnHelpMe)).perform(click())
         onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
         onView(withId(R.id.bottomSheetConstraint)).perform(swipeDown())
