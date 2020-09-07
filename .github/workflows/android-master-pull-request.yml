@@ -1,12 +1,12 @@
-name: Android Develop Merge - APK Workflow.
+name: Android Master - Pull Request Workflow.
 
 on:
-  push:
+  pull_request:
     branches:
-      - 'develop'
+      - 'master'
 
 jobs:
-  test_app_and_upload_develop_apk:
+  test_release_app:
     name: Run Android Tests and Generates APK
     runs-on: ubuntu-18.04
 
@@ -22,9 +22,3 @@ jobs:
 
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK
-        uses: actions/upload-artifact@v2
-        with:
-          name: Together Button - Develop APK
-          path: app/build/outputs/apk/debug/app-debug.apk
