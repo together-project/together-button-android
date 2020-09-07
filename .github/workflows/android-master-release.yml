@@ -8,7 +8,7 @@ on:
 jobs:
   test_app_and_generate_apk_release:
     name: Run Android Tests and Generates APK
-    runs-on: ubuntu-18.04
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
