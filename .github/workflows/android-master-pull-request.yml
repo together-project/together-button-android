@@ -17,8 +17,20 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Unit tests
+      - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
+
+      - name: Run UI Tests - API 29
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: ./gradlew connectedCheck
+
+      - name: Run UI Tests - API 19
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 19
+          script: ./gradlew connectedCheck
 
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
