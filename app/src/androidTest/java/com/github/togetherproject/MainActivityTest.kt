@@ -1,5 +1,6 @@
 package com.github.togetherproject
 
+import androidx.lifecycle.Lifecycle
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
@@ -10,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,6 +21,11 @@ class MainActivityTest {
 
     @get: Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun before() {
+        activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
+    }
 
     @Test
     fun test_isActivityInView() {
