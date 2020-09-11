@@ -40,7 +40,6 @@ dependencies {
     // Tests
     testImplementation 'junit:junit:4.12'
 
-
     // Espresso
     androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
 

@@ -6,9 +6,9 @@ on:
       - 'master'
 
 jobs:
-  test_app_and_generate_apk_release:
-    name: Run Android Tests and Generates APK
-    runs-on: macos-latest
+  unit_test:
+    name: Run Android Unit Tests
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -17,23 +17,48 @@ jobs:
         with:
           java-version: 1.8
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
 
-      - name: Run UI Tests - API 29
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew connectedCheck
+  ui_test:
+    name: Run Android UI Tests
+    runs-on: macos-latest
+    timeout-minutes: 30
+    strategy:
+      # Allow tests to continue on other devices if they fail on one device.
+      fail-fast: true
+      matrix:
+        api-level: [19, 21, 23, 29]
 
-      - name: Run UI Tests - API 19
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Run UI Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 19
-          script: ./gradlew connectedCheck
+          api-level: ${{ matrix.api-level }}
+          script: ./gradlew connectedCheck --no-build-cache --no-daemon --stacktrace
+
+  generate_apk:
+    needs: [ui_test, unit_test]
+    name: Run Android Tests and Generates APK
+    runs-on: macos-latest
+    outputs:
+      apk_version_name: ${{ steps.apk_last_step.outputs.version_name }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
 
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
@@ -41,12 +66,19 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: Together Button - Example APK
+          name: Together Button - Example APK (Release)
           path: app/build/outputs/apk/debug/app-debug.apk
 
       - name: Get APK version name
-        run: echo ::set-env name=VERSION_NAME::$(gradle -q printVersionName)
+        id: apk_last_step
+        run: echo "::set-output name=version_name::$(gradle -q printVersionName)"
 
+  create_draft_release:
+    needs: generate_apk
+    name: Create draft release notes with tag
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -54,7 +86,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ env.VERSION_NAME }}
-          release_name: Release v${{ env.VERSION_NAME }}
+          release_name: Release v${{ needs.generate_apk.outputs.apk_version_name }}
           body_path: release-notes/CHANGELOG.md
           draft: true
           prerelease: false
