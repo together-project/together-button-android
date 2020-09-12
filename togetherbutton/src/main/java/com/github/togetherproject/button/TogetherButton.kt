@@ -2,13 +2,12 @@ package com.github.togetherproject.button
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,12 +17,14 @@ import kotlinx.android.synthetic.main.fragment_together_bottom_sheet.view.*
 
 class TogetherButton(private val context: Activity) {
 
-    private val view: View
+    private var view: View
+    private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val togetherDialog = BottomSheetDialog(context, R.style.TogetherBottomSheetDialog)
 
     init {
-        val layoutInflater = LayoutInflater.from(context)
         view = layoutInflater.inflate(R.layout.fragment_together_bottom_sheet, null)
+        //view.screens.addView(layoutInflater.inflate(R.layout.screen_first, null))
+
         setUpClickListeners()
         togetherDialog.behavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
@@ -56,27 +57,28 @@ class TogetherButton(private val context: Activity) {
     }
 
     private fun setUpCallClickListener() {
-        view.btnCall.setOnClickListener {
-            if (!hasPermissions())
-                handleDidntGrantPermissions()
-            else {
-                val intent = Intent(Intent.ACTION_CALL)
-
-                intent.data = Uri.parse("tel:${context.getString(R.string.emergency_number)}")
-                context.startActivity(intent)
-            }
+        view.screens.btnCall.setOnClickListener {
+//            view.screens.addView(layoutInflater.inflate(R.layout.screen_second, null))
+//            if (!hasPermissions())
+//                handleDidntGrantPermissions()
+//            else {
+//                val intent = Intent(Intent.ACTION_CALL)
+//
+//                intent.data = Uri.parse("tel:${context.getString(R.string.emergency_number)}")
+//                context.startActivity(intent)
+//            }
         }
     }
 
     private fun setUpContactClickListener() {
-        view.btnContacts.setOnClickListener {
-            if (!hasPermissions())
-                handleDidntGrantPermissions()
-            else {
-                val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
-                context.startActivity(intent)
-            }
-        }
+//        view.btnContacts.setOnClickListener {
+//            if (!hasPermissions())
+//                handleDidntGrantPermissions()
+//            else {
+//                val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
+//                context.startActivity(intent)
+//            }
+//        }
     }
 
     private fun requestPermissions() {

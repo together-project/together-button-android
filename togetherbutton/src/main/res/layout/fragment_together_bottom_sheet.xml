@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomSheetConstraint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -30,76 +31,21 @@
         android:background="@drawable/ic_circular_close"
         android:contentDescription="@string/content_close_button"
         app:layout_constraintStart_toStartOf="parent"
-        android:foreground="?android:selectableItemBackground"
         app:layout_constraintTop_toTopOf="@id/imgViewTopLogo" />
 
-    <TextView
-        android:id="@+id/txtViewMainText"
-        style="@style/headerText"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/screens"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:text="@string/home_we_need_to_talk"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgViewTopLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/imgViewTopLogo">
 
-    <ImageView
-        android:id="@+id/imgViewCenter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/content_main_center_img"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_man_woman_phone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtViewMainText" />
-
-    <TextView
-        android:id="@+id/txtViewHumanHint"
-        style="@style/secondaryText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="@string/find_help"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgViewCenter" />
-
-    <LinearLayout
-        android:id="@+id/llActionButtons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/txtViewHumanHint">
-
-        <Button
-            android:id="@+id/btnCall"
-            style="@style/primaryButtonText"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/background_main_button"
-            android:text="@string/call_180"
-            android:foreground="?android:selectableItemBackground"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite" />
-
-        <Button
-            android:id="@+id/btnContacts"
-            style="@style/primaryButtonText"
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/background_main_button"
-            android:text="@string/safe_contacts"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite" />
-    </LinearLayout>
+        <include
+            android:id="@+id/layout_box"
+            layout="@layout/screen_first" />
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
