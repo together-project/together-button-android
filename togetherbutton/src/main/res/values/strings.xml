@@ -14,4 +14,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="emergency_number">180</string>
     <string name="permissions_denied_text">Para fazer uma ligação, você conceder as permissões.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

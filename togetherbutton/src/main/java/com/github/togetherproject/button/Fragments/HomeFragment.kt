@@ -1,4 +1,4 @@
-package com.github.togetherproject.button
+package com.github.togetherproject.button.Fragments
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.github.togetherproject.button.PermissionUltis.hasPermissions
+import com.github.togetherproject.button.Utils.PermissionUltis.hasPermissions
+import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

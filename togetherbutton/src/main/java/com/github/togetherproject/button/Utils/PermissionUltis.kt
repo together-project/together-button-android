@@ -1,4 +1,4 @@
-package com.github.togetherproject.button
+package com.github.togetherproject.button.Utils
 
 import android.Manifest
 import android.app.Activity

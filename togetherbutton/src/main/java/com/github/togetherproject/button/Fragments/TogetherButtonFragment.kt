@@ -1,12 +1,12 @@
-package com.github.togetherproject.button
+package com.github.togetherproject.button.Fragments
 
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentTogetherBottomSheetBinding
-import com.github.togetherproject.button.databinding.TogetherHeaderBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

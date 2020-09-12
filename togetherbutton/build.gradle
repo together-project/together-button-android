@@ -37,6 +37,10 @@ android {
             println android.defaultConfig.versionName
         }
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 private Integer generateVersionCode() {
