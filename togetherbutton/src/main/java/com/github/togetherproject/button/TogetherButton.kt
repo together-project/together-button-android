@@ -1,14 +1,11 @@
 package com.github.togetherproject.button
 
 import androidx.appcompat.app.AppCompatActivity
-import com.github.togetherproject.button.Fragments.TogetherButtonFragment
-import com.github.togetherproject.button.Utils.PermissionUltis
-
+import com.github.togetherproject.button.fragments.TogetherButtonFragment
 
 class TogetherButton(private val context: AppCompatActivity) {
 
     fun show() {
-        PermissionUltis.requestPermissions(context.applicationContext)
         val togetherButtonFragment = TogetherButtonFragment()
         togetherButtonFragment.show(context.supportFragmentManager, togetherButtonFragment.tag)
     }
