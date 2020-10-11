@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:id="@+id/homeRootLayout"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/txtViewMainText"
@@ -20,6 +19,7 @@
         android:id="@+id/imgViewCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:contentDescription="@string/content_main_center_img"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_man_woman_phone"
@@ -33,6 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="@string/find_help"
         app:layout_constraintEnd_toEndOf="parent"
@@ -43,6 +44,7 @@
         android:id="@+id/llActionButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

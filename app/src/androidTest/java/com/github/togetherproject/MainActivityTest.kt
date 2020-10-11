@@ -56,7 +56,7 @@ class MainActivityTest {
     fun test_isTogetherDialogDisposedAfterCloseButton() {
         onView(withId(R.id.btnHelpMe)).perform(click())
         onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
-        onView(withId(R.id.imgBtnClose)).perform(click())
+        onView(withId(R.id.btn_close)).perform(click())
         onView(withId(R.id.bottomSheetConstraint)).check(doesNotExist())
     }
 

@@ -9,3 +9,15 @@ fun Fragment.call(num: String) {
     intent.data = Uri.parse("tel:${num}")
     context?.startActivity(intent)
 }
+
+fun String.bold(): String {
+    return this
+}
+
+fun String.toColor(): String {
+    return this
+}
+
+fun String.underlined(): String {
+    return this
+}

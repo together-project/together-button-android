@@ -3,41 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="6dp">
 
     <TextView
-        android:id="@+id/placeName_text"
-        android:layout_width="0dp"
+        android:id="@+id/txt_place_all_infos"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="3dp"
-        android:text="Nome do local"
+        android:text="Nome + Endereço + Telefone"
         android:textColor="#000000"
-        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/placeAddress_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="3dp"
-        android:text="Endereço"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeName_text" />
-
-    <TextView
-        android:id="@+id/placePhone_text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="3dp"
-        android:text="(xx) xxxx-xxxx"
-        android:textColor="#3F51B5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/placeAddress_text" />
 </androidx.constraintlayout.widget.ConstraintLayout>

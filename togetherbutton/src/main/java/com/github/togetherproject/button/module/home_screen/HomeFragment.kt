@@ -1,4 +1,4 @@
-package com.github.togetherproject.button.fragments
+package com.github.togetherproject.button.module.home_screen
 
 import android.Manifest
 import android.content.Intent
@@ -8,14 +8,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
+import androidx.navigation.findNavController
 import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHomeBinding
 import com.github.togetherproject.button.utils.PermissionUltis.hasCallPermissions
 import com.github.togetherproject.button.utils.PermissionUltis.hasReadPermissions
 import com.github.togetherproject.button.utils.call
 
-class HomeFragment(val manager: FragmentManager) : Fragment(), View.OnClickListener {
+class HomeFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentHomeBinding
     private var phoneNo: String = ""
@@ -30,24 +30,29 @@ class HomeFragment(val manager: FragmentManager) : Fragment(), View.OnClickListe
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomeBinding.inflate(inflater)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.btnCallForHelp.setOnClickListener(this)
         binding.btnSafeContact.setOnClickListener(this)
-
-        return binding.root
     }
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.btnCallForHelp -> {
-                manager.beginTransaction().replace(R.id.fragmentContainer, AskForHelpFragment(manager)).commit()
+                p0.findNavController()
+                    .navigate(
+                        HomeFragmentDirections.actionHomeFragmentToAskForHelpFragment()
+                    )
             }
 
             R.id.btnSafeContact -> {
-                if (hasReadPermissions(context!!)) fetchPhoneNo()
-                else {
-                    requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_READ)
-                }
+                if (hasReadPermissions(requireContext())) fetchPhoneNo()
+                else requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_READ)
             }
         }
     }
@@ -63,7 +68,7 @@ class HomeFragment(val manager: FragmentManager) : Fragment(), View.OnClickListe
         if (requestCode == GET_CONTACT) {
             if (data?.data != null) {
                 val contactUri = data.data;
-                val crContacts = context!!.contentResolver.query(contactUri!!, null, null,
+                val crContacts = requireContext().contentResolver.query(contactUri!!, null, null,
                     null, null);
 
                 crContacts!!.moveToFirst()
@@ -71,7 +76,7 @@ class HomeFragment(val manager: FragmentManager) : Fragment(), View.OnClickListe
 
                 if (Integer.parseInt(crContacts.getString(crContacts.getColumnIndex(
                         ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                    val crPhones = context!!.contentResolver.query(
+                    val crPhones = requireContext().contentResolver.query(
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID
                                 + " = ?", arrayOf(id), null)
@@ -80,7 +85,7 @@ class HomeFragment(val manager: FragmentManager) : Fragment(), View.OnClickListe
                     phoneNo = crPhones.getString(crPhones.getColumnIndex(
                         ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-                    if (hasCallPermissions(context!!)) this.call(phoneNo)
+                    if (hasCallPermissions(requireContext())) this.call(phoneNo)
                     else {
                         requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
                     }

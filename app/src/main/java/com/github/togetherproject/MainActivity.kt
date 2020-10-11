@@ -2,7 +2,7 @@ package com.github.togetherproject
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.github.togetherproject.button.TogetherButton
+import com.github.togetherproject.button.module.setup.TogetherButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

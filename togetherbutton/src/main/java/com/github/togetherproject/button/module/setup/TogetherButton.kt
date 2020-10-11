@@ -1,7 +1,6 @@
-package com.github.togetherproject.button
+package com.github.togetherproject.button.module.setup
 
 import androidx.appcompat.app.AppCompatActivity
-import com.github.togetherproject.button.fragments.TogetherButtonFragment
 
 class TogetherButton(private val context: AppCompatActivity) {
 
