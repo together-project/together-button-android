@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.github.togetherproject.button.module.home_screen.HomeFragment"
+        android:name="com.github.togetherproject.button.module.help_screens.view.HomeFragment"
         android:label="HomeFragment">
         <action
             android:id="@+id/action_homeFragment_to_askForHelpFragment"
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/askForHelpFragment"
-        android:name="com.github.togetherproject.button.module.ask_for_help.AskForHelpFragment"
+        android:name="com.github.togetherproject.button.module.help_screens.view.AskForHelpFragment"
         android:label="AskForHelpFragment" >
         <action
             android:id="@+id/action_askForHelpFragment_to_homeFragment"
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/helpServicesFragment"
-        android:name="com.github.togetherproject.button.module.help_services.HelpServicesFragment"
+        android:name="com.github.togetherproject.button.module.help_screens.view.HelpServicesFragment"
         android:label="HelpServicesFragment" >
         <action
             android:id="@+id/action_helpServicesFragment_to_askForHelpFragment"

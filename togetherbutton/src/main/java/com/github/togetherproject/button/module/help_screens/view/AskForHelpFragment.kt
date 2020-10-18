@@ -1,4 +1,4 @@
-package com.github.togetherproject.button.module.ask_for_help
+package com.github.togetherproject.button.module.help_screens.view
 
 import android.Manifest
 import android.os.Bundle
@@ -6,17 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentAskForHelpBinding
-import com.github.togetherproject.button.module.home_screen.HomeFragment
-import com.github.togetherproject.button.utils.call
+import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
 import com.github.togetherproject.button.utils.PermissionUltis.hasCallPermissions
 
 class AskForHelpFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentAskForHelpBinding
-    private var num: String = ""
+    private val viewModel: HomeViewModel by viewModels()
+
+    private lateinit var num: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +40,10 @@ class AskForHelpFragment : Fragment(), View.OnClickListener {
         when (p0?.id) {
             R.id.btn_153 -> {
                 num = "153"
-                if (hasCallPermissions(requireContext())) this.call(num)
+                if (hasCallPermissions(requireContext())) viewModel.call(num, requireContext())
                 else {
-                    requestPermissions(arrayOf(Manifest.permission.CALL_PHONE),
+                    requestPermissions(
+                        arrayOf(Manifest.permission.CALL_PHONE),
                         HomeFragment.REQUEST_CALL
                     )
                 }
@@ -48,9 +51,10 @@ class AskForHelpFragment : Fragment(), View.OnClickListener {
 
             R.id.btn_180 -> {
                 num = "180"
-                if (hasCallPermissions(requireContext())) this.call(num)
+                if (hasCallPermissions(requireContext())) viewModel.call(num, requireContext())
                 else {
-                    requestPermissions(arrayOf(Manifest.permission.CALL_PHONE),
+                    requestPermissions(
+                        arrayOf(Manifest.permission.CALL_PHONE),
                         HomeFragment.REQUEST_CALL
                     )
                 }
@@ -59,7 +63,8 @@ class AskForHelpFragment : Fragment(), View.OnClickListener {
             R.id.btnServices -> {
                 findNavController()
                     .navigate(
-                        AskForHelpFragmentDirections.actionAskForHelpFragmentToHelpServicesFragment()
+                        AskForHelpFragmentDirections
+                            .actionAskForHelpFragmentToHelpServicesFragment()
                     )
             }
         }
@@ -72,9 +77,7 @@ class AskForHelpFragment : Fragment(), View.OnClickListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == HomeFragment.REQUEST_CALL) {
-            this.call(num)
-        }
+        if (requestCode == HomeFragment.REQUEST_CALL) viewModel.call(num, requireContext())
     }
 
 }

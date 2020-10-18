@@ -1,36 +1,36 @@
-package com.github.togetherproject.button.module.help_services
+package com.github.togetherproject.button.module.help_screens.viewmodel
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.github.togetherproject.button.databinding.FragmentHelpServicesBinding
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.github.togetherproject.button.model.Services
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class HelpServicesFragment: Fragment(), View.OnClickListener {
+class HomeViewModel: ViewModel() {
 
-    private lateinit var binding: FragmentHelpServicesBinding
-    private lateinit var servicesRecycler: RecyclerView
-    private var servicesAdapter = HelpServicesAdapter()
+    val viewLiveData: MutableLiveData<ViewState> = MutableLiveData()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHelpServicesBinding.inflate(inflater)
-        return binding.root
+    sealed class ViewState {
+        object LoadError: ViewState()
+        class LoadSuccess(val services: List<Services>): ViewState()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    fun getServicesList() = viewModelScope.launch {
+        try {
+            val services = getList()
+            viewLiveData.postValue(ViewState.LoadSuccess(services))
+        } catch (e: Exception) {
+            e.message?.let { Log.e("ERROR", it) }
+            viewLiveData.postValue(ViewState.LoadError)
+        }
+    }
 
-        servicesRecycler = binding.recyclerServices
-        servicesRecycler.layoutManager = LinearLayoutManager(this@HelpServicesFragment.context)
-        servicesRecycler.adapter = servicesAdapter
-
+    private fun getList(): List<Services> {
         val serv1 = Services(
             "Casa da mulher brasileira",
             "Av. Paraná, 870, Cabral, Curitiba",
@@ -79,11 +79,13 @@ class HelpServicesFragment: Fragment(), View.OnClickListener {
             "(42) 3309-1300"
         )
 
-        val services = arrayListOf(serv1, serv2, serv3, serv4, serv5, serv6, serv7, serv8)
-        servicesAdapter.setList(services)
+        return listOf(serv1, serv2, serv3, serv4, serv5, serv6, serv7, serv8)
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
+    fun call(num: String, context: Context) {
+        val intent = Intent(Intent.ACTION_CALL)
+        intent.data = Uri.parse("tel:${num}")
+        context.startActivity(intent)
     }
+
 }

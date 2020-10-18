@@ -5,22 +5,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.findFragment
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentTogetherBottomSheetBinding
-import com.github.togetherproject.button.module.ask_for_help.AskForHelpFragmentDirections
+import com.github.togetherproject.button.module.help_screens.view.AskForHelpFragmentDirections
+import com.github.togetherproject.button.module.help_screens.view.HelpServicesFragmentDirections
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_together_bottom_sheet.*
 
 class TogetherButtonFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private var dialog: BottomSheetDialog? = null
     private lateinit var binding: FragmentTogetherBottomSheetBinding
-    private lateinit var navController: NavController
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,26 +38,28 @@ class TogetherButtonFragment : BottomSheetDialogFragment(), View.OnClickListener
 
         binding.btnClose.setOnClickListener(this)
         binding.btnBack.setOnClickListener(this)
-        binding.btnBack.visibility = View.GONE
+        binding.btnBack.setOnClickListener(this)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         super.onCreateDialog(savedInstanceState)
 
         dialog = super.onCreateDialog(savedInstanceState) as BottomSheetDialog
-        dialog?.behavior?.peekHeight = 0
-        dialog?.behavior?.isHideable = true
-        dialog?.behavior?.state = BottomSheetBehavior.STATE_EXPANDED
-        dialog?.behavior?.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
+        dialog?.behavior?.apply {
+            peekHeight = 0
+            isHideable = true
+            state = BottomSheetBehavior.STATE_EXPANDED
+            addBottomSheetCallback(object :
+                BottomSheetBehavior.BottomSheetCallback() {
 
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_COLLAPSED) dialog?.hide()
-            }
+                override fun onStateChanged(bottomSheet: View, newState: Int) {
+                    if (newState == BottomSheetBehavior.STATE_COLLAPSED) dialog?.hide()
+                }
 
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            }
-        })
+                override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                }
+            })
+        }
 
         return dialog!!
     }
@@ -66,10 +71,23 @@ class TogetherButtonFragment : BottomSheetDialogFragment(), View.OnClickListener
             }
 
             R.id.btn_back -> {
-                navController
-                    .navigate(
-                        AskForHelpFragmentDirections.actionAskForHelpFragmentToHomeFragment()
-                    )
+//                when (p0.findNavController().currentDestination?.id) {
+//                    R.id.askForHelpFragment -> {
+//                        p0.findNavController()
+//                            .navigate(
+//                                AskForHelpFragmentDirections
+//                                    .actionAskForHelpFragmentToHomeFragment()
+//                            )
+//                    }
+//
+//                    R.id.helpServicesFragment -> {
+//                        p0.findNavController()
+//                            .navigate(
+//                                HelpServicesFragmentDirections
+//                                    .actionHelpServicesFragmentToAskForHelpFragment()
+//                            )
+//                    }
+//                }
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.github.togetherproject.button.module.home_screen
+package com.github.togetherproject.button.module.help_screens.view
 
 import android.Manifest
 import android.content.Intent
@@ -8,17 +8,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHomeBinding
+import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
 import com.github.togetherproject.button.utils.PermissionUltis.hasCallPermissions
 import com.github.togetherproject.button.utils.PermissionUltis.hasReadPermissions
-import com.github.togetherproject.button.utils.call
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentHomeBinding
-    private var phoneNo: String = ""
+    private val viewModel: HomeViewModel by viewModels()
+
+    private lateinit var phoneNo: String
 
     companion object {
         const val REQUEST_CALL: Int = 101
@@ -27,7 +30,8 @@ class HomeFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -46,13 +50,17 @@ class HomeFragment : Fragment(), View.OnClickListener {
             R.id.btnCallForHelp -> {
                 p0.findNavController()
                     .navigate(
-                        HomeFragmentDirections.actionHomeFragmentToAskForHelpFragment()
+                        HomeFragmentDirections
+                            .actionHomeFragmentToAskForHelpFragment()
                     )
             }
 
             R.id.btnSafeContact -> {
                 if (hasReadPermissions(requireContext())) fetchPhoneNo()
-                else requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), REQUEST_READ)
+                else requestPermissions(
+                    arrayOf(Manifest.permission.READ_CONTACTS),
+                    REQUEST_READ
+                )
             }
         }
     }
@@ -62,39 +70,55 @@ class HomeFragment : Fragment(), View.OnClickListener {
         startActivityForResult(intent, GET_CONTACT)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == GET_CONTACT) {
             if (data?.data != null) {
                 val contactUri = data.data;
-                val crContacts = requireContext().contentResolver.query(contactUri!!, null, null,
-                    null, null);
+                val crContacts = requireContext()
+                    .contentResolver
+                    .query(contactUri!!, null, null, null, null);
 
                 crContacts!!.moveToFirst()
                 val id = crContacts.getString(crContacts.getColumnIndex(ContactsContract.Contacts._ID));
 
-                if (Integer.parseInt(crContacts.getString(crContacts.getColumnIndex(
-                        ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0) {
-                    val crPhones = requireContext().contentResolver.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID
-                                + " = ?", arrayOf(id), null)
+                if (Integer.parseInt(
+                        crContacts.getString(
+                            crContacts.getColumnIndex(
+                                ContactsContract.Contacts.HAS_PHONE_NUMBER))) > 0
+                ) {
+                    val crPhones = requireContext()
+                        .contentResolver.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                            arrayOf(id),
+                            null
+                        )
 
                     crPhones!!.moveToFirst()
-                    phoneNo = crPhones.getString(crPhones.getColumnIndex(
-                        ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    phoneNo = crPhones.getString(
+                        crPhones.getColumnIndex(
+                            ContactsContract.CommonDataKinds.Phone.NUMBER
+                        )
+                    )
 
-                    if (hasCallPermissions(requireContext())) this.call(phoneNo)
-                    else {
-                        requestPermissions(arrayOf(Manifest.permission.CALL_PHONE), REQUEST_CALL)
-                    }
+                    if (hasCallPermissions(requireContext())) viewModel.call(phoneNo, requireContext())
+                    else requestPermissions(
+                        arrayOf(Manifest.permission.CALL_PHONE),
+                        REQUEST_CALL
+                    )
 
                     crPhones.close()
                 }
                 crContacts.close()
             }
-        } else this.call(phoneNo)
+        } else viewModel.call(phoneNo, requireContext())
     }
 
     override fun onRequestPermissionsResult(
@@ -104,7 +128,7 @@ class HomeFragment : Fragment(), View.OnClickListener {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
-        if (requestCode == REQUEST_CALL) this.call(phoneNo)
+        if (requestCode == REQUEST_CALL) viewModel.call(phoneNo, requireContext())
         if (requestCode == REQUEST_READ) fetchPhoneNo()
     }
 
