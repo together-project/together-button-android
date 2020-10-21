@@ -24,9 +24,11 @@ class TogetherButtonFragment : BottomSheetDialogFragment(), View.OnClickListener
 
     private var dialog: BottomSheetDialog? = null
     private lateinit var binding: FragmentTogetherBottomSheetBinding
+    private lateinit var navController: NavController
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentTogetherBottomSheetBinding.inflate(inflater, container, false)
@@ -66,9 +68,7 @@ class TogetherButtonFragment : BottomSheetDialogFragment(), View.OnClickListener
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
-            R.id.btn_close -> {
-                dialog?.hide()
-            }
+            R.id.btn_close -> dialog?.hide()
 
             R.id.btn_back -> {
 //                when (p0.findNavController().currentDestination?.id) {
