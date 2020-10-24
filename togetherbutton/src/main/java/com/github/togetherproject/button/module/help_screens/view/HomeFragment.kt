@@ -10,13 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHomeBinding
 import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
+import com.github.togetherproject.button.module.setup.TogetherButtonFragment
 import com.github.togetherproject.button.utils.PermissionUltis.hasCallPermissions
 import com.github.togetherproject.button.utils.PermissionUltis.hasReadPermissions
 
-class HomeFragment : Fragment(), View.OnClickListener {
+class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
@@ -41,27 +43,27 @@ class HomeFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCallForHelp.setOnClickListener(this)
-        binding.btnSafeContact.setOnClickListener(this)
+        binding.setUpClickListeners()
     }
 
-    override fun onClick(p0: View?) {
-        when (p0?.id) {
-            R.id.btnCallForHelp -> {
-                p0.findNavController()
-                    .navigate(
-                        HomeFragmentDirections
-                            .actionHomeFragmentToAskForHelpFragment()
-                    )
-            }
+    private fun FragmentHomeBinding.setUpClickListeners() {
+        imgFinishFromHome.setOnClickListener {
+            TogetherButtonFragment().dialog?.dismiss()
+        }
 
-            R.id.btnSafeContact -> {
-                if (hasReadPermissions(requireContext())) fetchPhoneNo()
-                else requestPermissions(
-                    arrayOf(Manifest.permission.READ_CONTACTS),
-                    REQUEST_READ
+        btnCallForHelp.setOnClickListener{
+            findNavController()
+                .navigate(
+                    HomeFragmentDirections
+                        .actionHomeFragmentToAskForHelpFragment()
                 )
-            }
+        }
+        btnSafeContact.setOnClickListener{
+            if (hasReadPermissions(requireContext())) fetchPhoneNo()
+            else requestPermissions(
+                arrayOf(Manifest.permission.READ_CONTACTS),
+                REQUEST_READ
+            )
         }
     }
 

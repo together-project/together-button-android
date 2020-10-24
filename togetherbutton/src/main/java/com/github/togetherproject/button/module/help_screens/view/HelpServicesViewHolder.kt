@@ -9,11 +9,11 @@ import android.text.style.UnderlineSpan
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.github.togetherproject.button.R
-import com.github.togetherproject.button.databinding.ServiceItemBinding
+import com.github.togetherproject.button.databinding.ItemServiceBinding
 import com.github.togetherproject.button.model.Services
 
 class HelpServicesViewHolder(
-    private val view: ServiceItemBinding
+    private val view: ItemServiceBinding
 ): RecyclerView.ViewHolder(view.root) {
 
     fun bind(service: Services) {

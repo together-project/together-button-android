@@ -16,6 +16,7 @@
 
     <string name="content_together_top_logo">Together Logo</string>
     <string name="content_close_button">Close button</string>
+    <string name="content_back_button">Back button</string>
     <string name="content_main_center_img">Man and woman handshaking</string>
     <string name="permissions_denied_text">Você conceder as permissões.</string>
     <string name="error_loading">Erro ao carregar informações</string>

@@ -20,11 +20,6 @@
         android:name="com.github.togetherproject.button.module.help_screens.view.AskForHelpFragment"
         android:label="AskForHelpFragment" >
         <action
-            android:id="@+id/action_askForHelpFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit" />
-        <action
             android:id="@+id/action_askForHelpFragment_to_helpServicesFragment"
             app:destination="@id/helpServicesFragment"
             app:enterAnim="@anim/fragment_fade_enter"
@@ -33,11 +28,5 @@
     <fragment
         android:id="@+id/helpServicesFragment"
         android:name="com.github.togetherproject.button.module.help_screens.view.HelpServicesFragment"
-        android:label="HelpServicesFragment" >
-        <action
-            android:id="@+id/action_helpServicesFragment_to_askForHelpFragment"
-            app:destination="@id/askForHelpFragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_close_exit" />
-    </fragment>
+        android:label="HelpServicesFragment" />
 </navigation>

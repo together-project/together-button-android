@@ -9,11 +9,13 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHelpServicesBinding
 import com.github.togetherproject.button.model.Services
 import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
+import com.github.togetherproject.button.module.setup.TogetherButtonFragment
 import com.github.togetherproject.button.utils.PermissionUltis
 
 class HelpServicesFragment: Fragment() {
@@ -36,8 +38,8 @@ class HelpServicesFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.setUpClickListeners()
         viewModel.getServicesList()
-
         viewModel.viewLiveData.observe(this, Observer {state ->
             when (state) {
                 is HomeViewModel.ViewState.LoadSuccess -> {
@@ -55,10 +57,20 @@ class HelpServicesFragment: Fragment() {
         })
     }
 
+    private fun FragmentHelpServicesBinding.setUpClickListeners() {
+        imgFinishFromServices.setOnClickListener {
+            TogetherButtonFragment().dialog?.dismiss()
+        }
+
+        imgBackFromServices.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
     private fun setUpServices(services: List<Services>) {
         servicesAdapter.apply{
             setList(services)
-            onSelectService = ::onSelectingService
+            onServiceSelect = ::onServiceSelected
         }
 
         binding.recyclerServices.apply {
@@ -67,7 +79,7 @@ class HelpServicesFragment: Fragment() {
         }
     }
 
-    private fun onSelectingService(services: Services) {
+    private fun onServiceSelected(services: Services) {
         num = services.phone
         if (PermissionUltis.hasCallPermissions(requireContext())) viewModel.call(num, requireContext())
         else {

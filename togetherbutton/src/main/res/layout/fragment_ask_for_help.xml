@@ -1,17 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="400dp">
+        android:layout_height="450dp"
+        tools:context=".module.help_screens.view.AskForHelpFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="15dp">
+
+                <ImageView
+                    android:id="@+id/img_finish_from_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_circular_close"
+                    android:contentDescription="@string/content_close_button" />
+
+                <ImageView
+                    android:id="@+id/img_logo_from_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_finish_from_call"
+                    app:layout_constraintEnd_toStartOf="@+id/img_back_from_call"
+                    app:layout_constraintStart_toEndOf="@+id/img_finish_from_call"
+                    app:layout_constraintTop_toTopOf="@+id/img_finish_from_call"
+                    app:srcCompat="@drawable/ic_logo_together"
+                    android:contentDescription="@string/content_together_top_logo" />
+
+                <ImageView
+                    android:id="@+id/img_back_from_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_finish_from_call"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/img_finish_from_call"
+                    app:srcCompat="@drawable/ic_arrow_back"
+                    android:contentDescription="@string/content_back_button" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/txtViewMainText2"
