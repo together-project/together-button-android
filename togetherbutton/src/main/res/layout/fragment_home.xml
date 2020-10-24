@@ -70,24 +70,20 @@
 
                 <Button
                     android:id="@+id/btnCallForHelp"
-                    style="@style/primaryButtonText"
+                    style="@style/mainButton"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/background_main_button"
                     android:text="@string/ask_for_help"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite" />
+                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/btnSafeContact"
-                    style="@style/primaryButtonText"
+                    style="@style/mainButton"
                     android:layout_width="145dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/background_main_button"
                     android:text="@string/safe_contacts"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite" />
+                    android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
