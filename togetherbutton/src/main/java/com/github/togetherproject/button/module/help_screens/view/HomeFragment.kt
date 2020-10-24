@@ -9,12 +9,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHomeBinding
 import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
-import com.github.togetherproject.button.module.setup.TogetherButtonFragment
 import com.github.togetherproject.button.utils.PermissionUltis.hasCallPermissions
 import com.github.togetherproject.button.utils.PermissionUltis.hasReadPermissions
 
@@ -22,7 +19,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private val viewModel: HomeViewModel by viewModels()
-
     private lateinit var phoneNo: String
 
     companion object {
@@ -47,10 +43,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun FragmentHomeBinding.setUpClickListeners() {
-        imgFinishFromHome.setOnClickListener {
-            TogetherButtonFragment().dialog?.dismiss()
-        }
-
         btnCallForHelp.setOnClickListener{
             findNavController()
                 .navigate(
@@ -58,6 +50,7 @@ class HomeFragment : Fragment() {
                         .actionHomeFragmentToAskForHelpFragment()
                 )
         }
+
         btnSafeContact.setOnClickListener{
             if (hasReadPermissions(requireContext())) fetchPhoneNo()
             else requestPermissions(
@@ -133,5 +126,4 @@ class HomeFragment : Fragment() {
         if (requestCode == REQUEST_CALL) viewModel.call(phoneNo, requireContext())
         if (requestCode == REQUEST_READ) fetchPhoneNo()
     }
-
 }

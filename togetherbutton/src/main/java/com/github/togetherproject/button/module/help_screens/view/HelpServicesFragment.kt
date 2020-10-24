@@ -15,7 +15,6 @@ import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentHelpServicesBinding
 import com.github.togetherproject.button.model.Services
 import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
-import com.github.togetherproject.button.module.setup.TogetherButtonFragment
 import com.github.togetherproject.button.utils.PermissionUltis
 
 class HelpServicesFragment: Fragment() {
@@ -58,10 +57,6 @@ class HelpServicesFragment: Fragment() {
     }
 
     private fun FragmentHelpServicesBinding.setUpClickListeners() {
-        imgFinishFromServices.setOnClickListener {
-            TogetherButtonFragment().dialog?.dismiss()
-        }
-
         imgBackFromServices.setOnClickListener {
             findNavController().navigateUp()
         }

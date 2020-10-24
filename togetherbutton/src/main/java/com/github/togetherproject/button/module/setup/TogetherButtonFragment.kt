@@ -14,13 +14,23 @@ class TogetherButtonFragment(
     private var dialog: BottomSheetDialog? = null
 ): BottomSheetDialogFragment() {
 
+    private lateinit var binding: FragmentTogetherBottomSheetBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentTogetherBottomSheetBinding.inflate(inflater, container, false)
+        binding = FragmentTogetherBottomSheetBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.imgClose.setOnClickListener{
+            dialog?.dismiss()
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

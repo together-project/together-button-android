@@ -42,5 +42,4 @@ class HelpServicesViewHolder(
 
         view.txtPlaceAllInfos.setText(builder, TextView.BufferType.SPANNABLE);
     }
-
 }

@@ -36,5 +36,4 @@ class HelpServicesAdapter(
         this.list = list
         notifyDataSetChanged()
     }
-
 }

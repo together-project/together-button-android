@@ -8,10 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.github.togetherproject.button.R
 import com.github.togetherproject.button.databinding.FragmentAskForHelpBinding
 import com.github.togetherproject.button.module.help_screens.viewmodel.HomeViewModel
-import com.github.togetherproject.button.module.setup.TogetherButtonFragment
 import com.github.togetherproject.button.utils.PermissionUltis.hasCallPermissions
 
 class AskForHelpFragment : Fragment() {
@@ -35,10 +33,6 @@ class AskForHelpFragment : Fragment() {
     }
 
     private fun FragmentAskForHelpBinding.setUpClickListeners() {
-        imgFinishFromCall.setOnClickListener{
-            TogetherButtonFragment().dialog?.dismiss()
-        }
-
         imgBackFromCall.setOnClickListener{
             findNavController().navigateUp()
         }
