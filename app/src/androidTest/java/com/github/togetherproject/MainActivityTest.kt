@@ -41,31 +41,31 @@ class MainActivityTest {
     fun test_isTogetherDialogVisible() {
         onView(withId(R.id.btnHelpMe)).perform(click())
 
-        onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
+        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
     }
 
     @Test
     fun test_isTogetherDialogDisposedAfterBackButton() {
         onView(withId(R.id.btnHelpMe)).perform(click())
-        onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
+        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
         pressBack()
-        onView(withId(R.id.bottomSheetConstraint)).check(doesNotExist())
+        onView(withId(R.id.togetherBottomSheetLayout)).check(doesNotExist())
     }
 
     @Test
     fun test_isTogetherDialogDisposedAfterCloseButton() {
         onView(withId(R.id.btnHelpMe)).perform(click())
-        onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
-        onView(withId(R.id.btn_close)).perform(click())
-        onView(withId(R.id.bottomSheetConstraint)).check(doesNotExist())
+        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.img_close)).perform(click())
+        onView(withId(R.id.togetherBottomSheetLayout)).check(doesNotExist())
     }
 
     @Test
     fun test_isTogetherDialogDisposedAfterSwipeDown() {
         onView(withId(R.id.btnHelpMe)).perform(click())
-        onView(withId(R.id.bottomSheetConstraint)).check(matches(isDisplayed()))
-        onView(withId(R.id.bottomSheetConstraint)).perform(swipeDown())
+        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.togetherBottomSheetLayout)).perform(swipeDown())
         Thread.sleep(1000)
-        onView(withId(R.id.bottomSheetConstraint)).check(doesNotExist())
+        onView(withId(R.id.togetherBottomSheetLayout)).check(doesNotExist())
     }
 }
