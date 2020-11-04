@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
+        android:id="@+id/askForHelpLayout"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         tools:context=".module.help_screens.view.AskForHelpFragment">
