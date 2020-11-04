@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <LinearLayout
+        android:id="@+id/servicesLayout"
         android:layout_width="match_parent"
         android:layout_height="450dp"
         android:gravity="center_horizontal"

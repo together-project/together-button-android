@@ -27,6 +27,11 @@ class MainActivityTest {
     @get: Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
+    private fun setAndCheckTogetherButtonFragmentVisible() {
+        onView(withId(R.id.btnHelpMe)).perform(click())
+        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+    }
+
     @Test
     fun test_isActivityInView() {
         onView(withId(R.id.rootLayout)).check(matches(isDisplayed()))
@@ -39,33 +44,64 @@ class MainActivityTest {
 
     @Test
     fun test_isTogetherDialogVisible() {
-        onView(withId(R.id.btnHelpMe)).perform(click())
-
-        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+        setAndCheckTogetherButtonFragmentVisible()
     }
 
     @Test
     fun test_isTogetherDialogDisposedAfterBackButton() {
-        onView(withId(R.id.btnHelpMe)).perform(click())
-        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+        setAndCheckTogetherButtonFragmentVisible()
         pressBack()
         onView(withId(R.id.togetherBottomSheetLayout)).check(doesNotExist())
     }
 
     @Test
     fun test_isTogetherDialogDisposedAfterCloseButton() {
-        onView(withId(R.id.btnHelpMe)).perform(click())
-        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+        setAndCheckTogetherButtonFragmentVisible()
         onView(withId(R.id.img_close)).perform(click())
         onView(withId(R.id.togetherBottomSheetLayout)).check(doesNotExist())
     }
 
     @Test
     fun test_isTogetherDialogDisposedAfterSwipeDown() {
-        onView(withId(R.id.btnHelpMe)).perform(click())
-        onView(withId(R.id.togetherBottomSheetLayout)).check(matches(isDisplayed()))
+        setAndCheckTogetherButtonFragmentVisible()
         onView(withId(R.id.togetherBottomSheetLayout)).perform(swipeDown())
         Thread.sleep(1000)
         onView(withId(R.id.togetherBottomSheetLayout)).check(doesNotExist())
+    }
+
+    @Test
+    fun test_isHelpFragmentShowingAfterButtonClick() {
+        setAndCheckTogetherButtonFragmentVisible()
+        onView(withId(R.id.btnCallForHelp)).perform(click())
+        onView(withId(R.id.askForHelpLayout)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun test_wasReturnedFromHelpFragmentAfterBackArrow() {
+        setAndCheckTogetherButtonFragmentVisible()
+        onView(withId(R.id.btnCallForHelp)).perform(click())
+        onView(withId(R.id.askForHelpLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.img_back_from_call)).perform(click())
+        onView(withId(R.id.img_logo_from_home)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun test_isServicesFragmentShowingAfterButtonClick() {
+        setAndCheckTogetherButtonFragmentVisible()
+        onView(withId(R.id.btnCallForHelp)).perform(click())
+        onView(withId(R.id.askForHelpLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnServices)).perform(click())
+        onView(withId(R.id.servicesLayout)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun test_wasReturnedFromServicesFragmentAfterBackArrow() {
+        setAndCheckTogetherButtonFragmentVisible()
+        onView(withId(R.id.btnCallForHelp)).perform(click())
+        onView(withId(R.id.askForHelpLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.btnServices)).perform(click())
+        onView(withId(R.id.servicesLayout)).check(matches(isDisplayed()))
+        onView(withId(R.id.img_back_from_services)).perform(click())
+        onView(withId(R.id.askForHelpLayout)).check(matches(isDisplayed()))
     }
 }
