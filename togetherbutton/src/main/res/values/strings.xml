@@ -1,12 +1,24 @@
 <resources>
+
+<!--    HOME-->
     <string name="home_we_need_to_talk">As vezes só precisamos de\nalguém para conversar</string>
     <string name="find_help">Não fique só.\nNão corra perigo.\nBusque ajuda.</string>
-    <string name="call_180">Chamar 180</string>
+    <string name="ask_for_help">Pedir ajuda</string>
     <string name="safe_contacts">Contato Seguro</string>
+
+<!--    ASK HELP-->
+    <string name="urgent_help">Se estiver em perigo e precisar\n de socorro imediato, ligue:</string>
+    <string name="view_help_options">"Caso precise de ajuda, ou deseje\n aljudar alguém, clique abaixo para\nver os serviços disponíveis:</string>
+    <string name="available_services">Ver serviços</string>
+
+<!--    HELP SERVICES-->
+    <string name="services">Serviços</string>
+
     <string name="content_together_top_logo">Together Logo</string>
     <string name="content_close_button">Close button</string>
+    <string name="content_back_button">Back button</string>
     <string name="content_main_center_img">Man and woman handshaking</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="emergency_number">180</string>
-    <string name="permissions_denied_text">Para fazer uma ligação, você conceder as permissões.</string>
+    <string name="permissions_denied_text">Você conceder as permissões.</string>
+    <string name="error_loading">Erro ao carregar informações</string>
+
 </resources>
